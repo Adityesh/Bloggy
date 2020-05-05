@@ -3,7 +3,6 @@ const pug = require('pug')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config();
 const session = require('express-session');
-import { v4 as uuidv4 } from 'uuid';
 const passport = require('passport')
 
 //Init express
@@ -15,7 +14,7 @@ app.use(express.json())
 
 //Authorization middlewares of express-session and passportJS
 app.use(session({
-    secret : uuidv4(),
+    secret : 'Secret',
     resave : false,
     saveUninitialized : false
 }))
@@ -37,6 +36,8 @@ mongoose.connect(process.env.DB,{useNewUrlParser : true, useUnifiedTopology : tr
     .then(() => {console.log("Connected to the database.")})
     .catch(err => {throw err})
 
+//Login auth handler
+require('./auth/auth');
 
 //Listen port
 app.listen(process.env.PORT,() => {

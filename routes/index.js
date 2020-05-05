@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 
 //Get index routes
 router.get('/',(req ,res) => {
@@ -11,6 +12,7 @@ router.get('/',(req ,res) => {
 //Display the register page
 router.get('/register', (req, res) => {
     res.render('../views/user/register')
+    console.log(req.user)
 
 })
 
@@ -24,7 +26,6 @@ router.get('/login', (req, res) => {
 router.post('/register', (req, res) => {
     let errors = []
     let danger = false;
-    let already = false;
     const {username, email, password, password2} = req.body;
     //No fields are provided
     if(!username || !email || !password || !password2) {
@@ -64,12 +65,11 @@ router.post('/register', (req, res) => {
     if(danger) {
         res.render('../views/user/register.pug', {errors, danger : true})
     }
+})
 
-    
-        
-    
-        
-    
+
+//Login a user
+router.post('/login',passport.authenticate('local',{successRedirect : '/register',failureRedirect : '/'}), (req, res, next) =>  {
 })
 
 
