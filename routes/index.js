@@ -22,14 +22,19 @@ router.get('/login', (req, res) => {
 
 //Post route to register a user
 router.post('/register', (req, res) => {
+    let errors = []
+    let danger = false;
+    let already = false;
     const {username, email, password, password2} = req.body;
     //No fields are provided
     if(!username || !email || !password || !password2) {
-        res.render('../views/user/error',{message : "All fields need to be filled in."})
+        errors.push("All fields need to be filled in.")
+        danger = true
     }
     //Check if the typed passes are equal
     if(password !== password2) {
-        res.render('../views/user/error',{message : "Passwords don't match."})
+        errors.push("Passwords don't match.")
+        danger = true
     }
     //Check if email already exists in the database
     User.findOne({email},async (err, user) => {
@@ -44,17 +49,26 @@ router.post('/register', (req, res) => {
                 password : hash
 
             })
-            console.log(newUser)
             //Save the user to the database
             await newUser.save((err, regUser) => {
                 if(err) throw err;
             })
+            danger = false;
             res.redirect('/login')
-            
         } else {
-            res.render('../views/user/error',{message : "User already exists"})
-        }
+            danger = true;
+            res.render('../views/user/error', {error : "User Already Registered."})
+        } 
     })
+
+    if(danger) {
+        res.render('../views/user/register.pug', {errors, danger : true})
+    }
+
+    
+        
+    
+        
     
 })
 
