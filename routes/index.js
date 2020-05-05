@@ -12,8 +12,6 @@ router.get('/',(req ,res) => {
 //Display the register page
 router.get('/register', (req, res) => {
     res.render('../views/user/register')
-    console.log(req.user)
-
 })
 
 //Display the login page

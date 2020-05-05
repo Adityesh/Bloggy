@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+
+*,*::after,*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+.bg {
+    background-image: url('./landing.jpg');
+    background-size: cover;
+    position: absolute;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    filter: opacity(100%)
+}
+
+.bg h1 {
+    font-family: 'Knewave', cursive;
+    text-align: center;
+    font-size: 6rem;
+    color: orangered;
+}
+
+.buttons {
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+.buttons a {
+    margin: 0 40px;
+    padding: 100px 100px;
+    border-radius: 20%;
+}
+
+#login {
+    box-shadow: 0 0 50px white;
+    color: black;
+    font-size: 30px;
+    font-family: sans-serif;
+    background-color: white;
+}
+
+#register {
+    box-shadow: 0 0 50px black;
+    color: white;
+    font-size: 30px;
+    padding: 100px 80px;
+    font-family: sans-serif;
+    background-color: black;
+}
+
+#login:hover {
+    box-shadow: 0 0 100px white;
+}
+
+#register:hover {
+    box-shadow: 0 0 100px black;
+}

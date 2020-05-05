@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv').config();
 const session = require('express-session');
 const passport = require('passport')
+const path = require('path')
 
 //Init express
 const app = express()
@@ -25,8 +26,7 @@ app.use(passport.session());
 app.set('view engine' , 'pug')
 
 //Static files
-app.use(express.static('public'))
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Custom routes
 app.use('/',require('./routes/index'))
