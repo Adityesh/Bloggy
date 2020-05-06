@@ -78,4 +78,30 @@ router.get('/profile',isAuth,(req, res) => {
 })
 
 
+
+//Logout the user and destroy the session cookie
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.clearCookie('connect.sid')
+    res.redirect('/login')
+})
+
+//Profile update section
+router.get('/profile/update',isAuth,(req, res) => {
+    const {username, email} = req.user;
+    res.render('../views/user/update', {username,email})
+})
+
+
+router.post('/profile/update',isAuth, (req, res) => {
+    const existingEmail = req.user.email;
+    const {email, username} = req.body;
+    if(username && email) {
+        User.findOneAndUpdate({email : existingEmail},{$set : {email,username}},(err, doc) => {
+            if(err) throw err;
+            res.render('../views/user/update', {username,email})
+        })
+    }
+})
+
 module.exports = router;

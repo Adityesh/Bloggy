@@ -5,7 +5,7 @@ html(lang="en")
         link(rel='stylesheet', href='/download/css/bootstrap.min.css')
         link(rel='stylesheet', href="/profile.css", type='text/css')
         title Home
-    body  
+    body.update-section  
         nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.sticky-top
             a.navbar-brand(href='/profile')
                 h3 Bloggy
@@ -25,15 +25,31 @@ html(lang="en")
                         .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                             a.dropdown-item(href='/profile/update') Update Profile
                             a.dropdown-item(href='/logout') Log out
-                    
 
+        .container.profile-section
+            h3.title Update Profile
 
+            form(method='POST',action='/profile/update')
+                .form-group
+                    .input-group.mb-3
+                        .input-group-prepend
+                            span#basic-addon1.input-group-text Existing email
+                        input.form-control(type='text', aria-label='email',value=email aria-describedby='basic-addon1',readOnly)
+                    .input-group.mb-3
+                        .input-group-prepend
+                            span#basic-addon1.input-group-text Updated email
+                        input.form-control(type='text', name='email', placeholder='Enter new email address..', aria-label='Username', aria-describedby='basic-addon1',required)
 
-
-
-
-
-
+                .form-group
+                    .input-group.mb-3
+                        .input-group-prepend
+                            span#basic-addon1.input-group-text Existing Username
+                        input.form-control(type='text', aria-label='email',value=username aria-describedby='basic-addon1',readOnly)
+                    .input-group.mb-3
+                        .input-group-prepend
+                            span#basic-addon1.input-group-text Updated Username
+                        input.form-control(type='text',name='username', placeholder='Enter new Username', aria-label='Username', aria-describedby='basic-addon1',required)
+                button.btn.btn-success(type='submit') Update
 
         script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js', integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n', crossorigin='anonymous')
         script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', crossorigin='anonymous')

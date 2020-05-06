@@ -9,3 +9,38 @@ h3 {
 nav {
     color: white;
 }
+
+
+.profile-section {
+    margin-top: 15%;
+}
+
+.update-section{
+    background: linear-gradient(195deg, #663024, #2caa9b);
+    background-size: 400% 400%;
+    height: 100vh;
+    width: 100vw;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+@keyframes AnimationName {
+    0%{background-position:51% 0%}
+    50%{background-position:50% 100%}
+    100%{background-position:51% 0%}
+}
+
+.title {
+    margin-bottom: 30px;
+}
