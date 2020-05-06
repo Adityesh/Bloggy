@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
+const isAuth = require('../auth/isAuth')
 
 //Get index routes
 router.get('/',(req ,res) => {
@@ -67,7 +68,13 @@ router.post('/register', (req, res) => {
 
 
 //Login a user
-router.post('/login',passport.authenticate('local',{successRedirect : '/register',failureRedirect : '/'}), (req, res, next) =>  {
+router.post('/login',passport.authenticate('local',{successRedirect : '/profile',failureRedirect : '/login'}), (req, res, next) =>  {
+})
+
+
+//Display the profile page
+router.get('/profile',isAuth,(req, res) => {
+    res.render('../views/user/profile')
 })
 
 
