@@ -14,18 +14,49 @@ html(lang="en")
             #navbarNav.collapse.navbar-collapse
                 ul.navbar-nav
                     li.nav-item.active
-                        a.nav-link(href='/profile')
-                            | Home 
-                            span.sr-only (current)
-                    li.nav-item
-                        a.nav-link(href='/about') About
+                        a.nav-link(href='/profile') Hello,
+                            strong  #{username} 
                     li.nav-item.dropdown
                         a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                             | More
                         .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                             a.dropdown-item(href='/profile/update') Update Profile
                             a.dropdown-item(href='/logout') Log out
+
+        .container.mt-3
+            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#exampleModal')
+                | New Post
+        #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+            .modal-dialog(role='document')
+                .modal-content
+                    .modal-header
+                        h5#exampleModalLabel.modal-title Create a New Blog
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        form(method='POST',action='/create',enctype="multipart/form-data")
+                            .form-group
+                                .input-group.mb-3.mt-3
+                                        .input-group-prepend
+                                            span#inputGroup-sizing-default.input-group-text Name: 
+                                        input.form-control(type='text', aria-label='Default', aria-describedby='inputGroup-sizing-default',id='articleName')
+                            .form-group
+                                .input-group
+                                    .input-group-prepend
+                                    textarea.form-control(aria-label='With textarea',placeholder='Write something interesting...',rows=20,id='articleBody')
+                            .form-group
+                                .input-group.mb-3.mt-3
+                                    .input-group-prepend
+                                        span#basic-addon1.input-group-text Image
+                                    input.form-control(type='file', aria-label='Username',accept="image/*", name="photo" aria-describedby='basic-addon1',id='imageName')
+                            .modal-footer
+                                button.btn.btn-danger(type='reset', data-dismiss='modal') Close
+                                button.btn.btn-primary(type='submit') Create
+
+                        
                     
+
+
 
 
 
@@ -38,3 +69,8 @@ html(lang="en")
         script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js', integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n', crossorigin='anonymous')
         script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', crossorigin='anonymous')
         script(src='/download/js/bootstrap.min.js')
+        script(src="/post.js")
+        
+
+        
+        

@@ -5,6 +5,9 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const isAuth = require('../auth/isAuth')
 
+//Make changes to multer to handle file upload
+const multer = require('multer')
+const upload = multer({dest : '../public/uploads/images'})
 //Get index routes
 router.get('/',(req ,res) => {
     res.render('../views/user/index',{message : "Adityesh"})
@@ -74,7 +77,7 @@ router.post('/login',passport.authenticate('local',{successRedirect : '/profile'
 
 //Display the profile page
 router.get('/profile',isAuth,(req, res) => {
-    res.render('../views/user/profile')
+    res.render('../views/user/profile', {username : req.user.username.toUpperCase()})
 })
 
 
@@ -92,7 +95,7 @@ router.get('/profile/update',isAuth,(req, res) => {
     res.render('../views/user/update', {username,email})
 })
 
-
+//Update the profile from user inputs
 router.post('/profile/update',isAuth, (req, res) => {
     const existingEmail = req.user.email;
     const {email, username} = req.body;
@@ -102,6 +105,10 @@ router.post('/profile/update',isAuth, (req, res) => {
             res.render('../views/user/update', {username,email})
         })
     }
+})
+//Post an article with the image attached to it.
+router.post('/create',isAuth,upload.single('photo'),(req,res) => {
+    console.log(req.file)
 })
 
 module.exports = router;
