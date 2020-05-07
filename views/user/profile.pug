@@ -52,7 +52,35 @@ html(lang="en")
                             .modal-footer
                                 button.btn.btn-danger(type='reset', data-dismiss='modal') Close
                                 button.btn.btn-primary(type='submit') Create
+        .container
+        if data
+            each post in userPosts
+                .card(style='width: 18rem;')
+                    img.card-img-top(src=post.image.substring(post.image.indexOf("/posts")), alt='...')
+                    .card-body
+                        h5.card-title #{post.title}
+                        p.card-text
+                        | #{post.postBody}
+                        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#BlogModal')
+                            | Read More
 
+                        #BlogModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                            .modal-dialog(role='document')
+                                .modal-content
+                                    .modal-header
+                                        h5.card-title #{post.title}
+                                        br
+                                        span
+                                        br
+                                        | posted on- #{post.createdOn}
+                                        img.card-img-top(src=post.image.substring(post.image.indexOf("/posts")), alt='...')
+                                    .modal-body
+                                        p.card-text
+                                            | #{post.postBody}
+                                    .modal-footer
+                                        button.btn.btn-danger(type='reset', data-dismiss='modal') Close
+                                        button.btn.btn-primary(type='button') Delete
+                br
                         
                     
 

@@ -91,7 +91,16 @@ router.post('/login',passport.authenticate('local',{successRedirect : '/profile'
 
 //Display the profile page
 router.get('/profile',isAuth,(req, res) => {
-    res.render('../views/user/profile', {username : req.user.username.toUpperCase()})
+    UserPost.findOne({email : req.user.email},(err, posts) => {
+        if(err) console.log(err)
+        if(!posts) {
+            res.render('../views/user/profile', {username : req.user.username.toUpperCase(),data : false})
+        } else if(posts) {
+            res.render('../views/user/profile', {username : req.user.username.toUpperCase(),userPosts : posts.posts.reverse(),data : true})
+        }
+        
+    })
+    
 })
 
 
@@ -126,8 +135,7 @@ router.post('/profile/update',isAuth, (req, res) => {
 router.post('/create',isAuth,upload.single('photo'),(req,res) => {
     let image = '';
     if(req.file === undefined) {
-        //Change the image to be dynamic
-        image = '/home/adityesh/Desktop/loginSystem/public/posts/images/default-image.jpg'
+        image = '/posts/images/default-image.jpg'
     } else { image = req.file.path}
     const { title, articleBody} = req.body;
     const userId = req.user._id
@@ -145,7 +153,8 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
                     {
                         title,
                         postBody : articleBody,
-                        image
+                        image,
+                        createdOn : new Date().toLocaleDateString()
                     }
                 ]
             }
@@ -164,7 +173,8 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
             user.posts.push({
                     title,
                     postBody : articleBody,
-                    image
+                    image,
+                    createdOn : new Date().toLocaleDateString()
             })
             user.save((err, doc) => {
                 if(err) res.render('../views/user/error', {error : "Internal Server error"})

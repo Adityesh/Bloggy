@@ -11,7 +11,8 @@ const PostSchema = mongoose.Schema({
     },
     image : {
         type : String,
-    }
+    },
+    createdOn : {type : Date}
 })
 
 const UserPostSchema = mongoose.Schema({
