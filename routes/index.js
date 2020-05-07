@@ -7,7 +7,11 @@ const isAuth = require('../auth/isAuth')
 
 //Make changes to multer to handle file upload
 const multer = require('multer')
-const upload = multer({dest : '../public/uploads/images'})
+
+//Upload directory for the post image
+const upload = multer({dest : __dirname + '/../public/uploads/images'})
+
+
 //Get index routes
 router.get('/',(req ,res) => {
     res.render('../views/user/index',{message : "Adityesh"})
