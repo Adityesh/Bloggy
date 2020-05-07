@@ -131,6 +131,7 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
     } else { image = req.file.path}
     const { title, articleBody} = req.body;
     const userId = req.user._id
+    const email = req.user.email
     
     //Find if the logged in user has a single post in the database
     UserPost.findOne({userId} , (err, user) => {
@@ -139,6 +140,7 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
         if(!user) {
             let newUser = {
                 userId,
+                email,
                 posts : [
                     {
                         title,
@@ -150,7 +152,10 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
 
             UserPost.create(newUser,(err, doc) => {
                 if(err) res.render('../views/user/error', {error : "Server error"})
-                res.redirect('/profile')
+                if(doc) {
+                    res.redirect('/profile')
+                }
+                
             })
         
         } 
@@ -163,7 +168,9 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
             })
             user.save((err, doc) => {
                 if(err) res.render('../views/user/error', {error : "Internal Server error"})
-                res.redirect('/profile')
+                if(doc) {
+                    res.redirect('/profile')
+                }
             })
         }
     })
