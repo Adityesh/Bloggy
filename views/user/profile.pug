@@ -54,17 +54,18 @@ html(lang="en")
                                 button.btn.btn-primary(type='submit') Create
         .container
         if data
+            
             each post in userPosts
+                -var index = Math.random()
                 .card(style='width: 18rem;')
                     img.card-img-top(src=post.image.substring(post.image.indexOf("/posts")), alt='...')
                     .card-body
                         h5.card-title #{post.title}
                         p.card-text
                         | #{post.postBody}
-                        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#BlogModal')
+                        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#' + index)
                             | Read More
-
-                        #BlogModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                        div(id=index,tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true').modal.fade
                             .modal-dialog(role='document')
                                 .modal-content
                                     .modal-header

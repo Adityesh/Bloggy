@@ -121,12 +121,34 @@ router.get('/profile/update',isAuth,(req, res) => {
 //Update the profile from user inputs
 router.post('/profile/update',isAuth, (req, res) => {
     const existingEmail = req.user.email;
+    const loggedId = req.user._id;
     const {email, username} = req.body;
     if(username && email) {
-        User.findOneAndUpdate({email : existingEmail},{$set : {email,username}},(err, doc) => {
+       User.findOne({email,username},(err, user) => {
+           if(err) throw err;
+           if(user) {
+            res.render('../views/user/error', {error : "Email Already Exists."})
+           }
+           if (!user) {
+                User.findOneAndUpdate({email: existingEmail,username : req.user.username},{$set : {email : email, username : username}},(err, doc) => {
+                    if(err) throw err;
+                })
+           }
+       })
+       UserPost.findOne({userId : req.user._id},(err, user) => {
             if(err) throw err;
-            res.redirect('/logout')
-        })
+            if(!user) {
+                res.render('../views/user/error', {error : "Server Error"})
+            } else {
+                user.email = email
+                user.save()
+            }
+       })
+
+
+        
+
+        res.redirect('/logout')
     }
 })
 

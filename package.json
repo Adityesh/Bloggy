@@ -1,7 +1,7 @@
 {
-  "name": "loginsystem",
+  "name": "Bloggy",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create blog posts and share",
   "main": "index.js",
   "scripts": {
     "test": "nodemon index"
