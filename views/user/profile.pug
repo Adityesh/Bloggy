@@ -39,16 +39,16 @@ html(lang="en")
                                 .input-group.mb-3.mt-3
                                         .input-group-prepend
                                             span#inputGroup-sizing-default.input-group-text Name: 
-                                        input.form-control(type='text', aria-label='Default', aria-describedby='inputGroup-sizing-default',id='articleName')
+                                        input.form-control(type='text',name='title', aria-label='Default', aria-describedby='inputGroup-sizing-default',id='articleName',required)
                             .form-group
                                 .input-group
                                     .input-group-prepend
-                                    textarea.form-control(aria-label='With textarea',placeholder='Write something interesting...',rows=20,id='articleBody')
+                                    textarea.form-control(aria-label='With textarea',placeholder='Write something interesting...',rows=20,id='articleBody',name='articleBody',required)
                             .form-group
                                 .input-group.mb-3.mt-3
                                     .input-group-prepend
                                         span#basic-addon1.input-group-text Image
-                                    input.form-control(type='file', aria-label='Username',accept="image/*", name="photo" aria-describedby='basic-addon1',id='imageName')
+                                    input.form-control(type='file', aria-label='Username',name="photo" aria-describedby='basic-addon1')
                             .modal-footer
                                 button.btn.btn-danger(type='reset', data-dismiss='modal') Close
                                 button.btn.btn-primary(type='submit') Create

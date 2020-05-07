@@ -4,12 +4,22 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const isAuth = require('../auth/isAuth')
-
+const path = require('path')
+const UserPost = require('../models/UserPost')
 //Make changes to multer to handle file upload
 const multer = require('multer')
 
+// SET STORAGE
+const storage = multer.diskStorage({
+    destination: __dirname + '/../public/posts/images',
+    filename: function (req, file, cb) {
+        cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname))
+    }
+})
+   
+const upload = multer({ storage: storage })
 //Upload directory for the post image
-const upload = multer({dest : __dirname + '/../public/uploads/images'})
+// const upload = multer({dest : __dirname + '/../public/posts/images'})
 
 
 //Get index routes
@@ -106,13 +116,59 @@ router.post('/profile/update',isAuth, (req, res) => {
     if(username && email) {
         User.findOneAndUpdate({email : existingEmail},{$set : {email,username}},(err, doc) => {
             if(err) throw err;
-            res.render('../views/user/update', {username,email})
+            res.redirect('/logout')
         })
     }
 })
+
+
 //Post an article with the image attached to it.
 router.post('/create',isAuth,upload.single('photo'),(req,res) => {
-    console.log(req.file)
+    let image = '';
+    if(req.file === undefined) {
+        //Change the image to be dynamic
+        image = '/home/adityesh/Desktop/loginSystem/public/posts/images/default-image.jpg'
+    } else { image = req.file.path}
+    const { title, articleBody} = req.body;
+    const userId = req.user._id
+    
+    //Find if the logged in user has a single post in the database
+    UserPost.findOne({userId} , (err, user) => {
+        if(err) console.log(err)
+        //No post for the logged user
+        if(!user) {
+            let newUser = {
+                userId,
+                posts : [
+                    {
+                        title,
+                        postBody : articleBody,
+                        image
+                    }
+                ]
+            }
+
+            UserPost.create(newUser,(err, doc) => {
+                if(err) res.render('../views/user/error', {error : "Server error"})
+                res.redirect('/profile')
+            })
+        
+        } 
+        //User has some posts so append to the post array
+        else {
+            user.posts.push({
+                    title,
+                    postBody : articleBody,
+                    image
+            })
+            user.save((err, doc) => {
+                if(err) res.render('../views/user/error', {error : "Internal Server error"})
+                res.redirect('/profile')
+            })
+        }
+    })
+
+    
 })
 
 module.exports = router;
