@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',require('./routes/index'))
 
 //Connect to mongo
-mongoose.connect(process.env.DB,{useNewUrlParser : true, useUnifiedTopology : true})
+mongoose.connect(process.env.DB,{useNewUrlParser : true, useUnifiedTopology : true,useFindAndModify : false})
     .then(() => {console.log("Connected to the database.")})
     .catch(err => {throw err})
 

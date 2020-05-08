@@ -94,7 +94,7 @@ router.get('/profile',isAuth,(req, res) => {
     UserPost.findOne({email : req.user.email},(err, posts) => {
         if(err) console.log(err)
         if(!posts) {
-            res.render('../views/user/profile', {username : req.user.username.toUpperCase(),data : false})
+            res.render('../views/user/profile', {username : req.user.username.toUpperCase(),data : false,userPosts : []})
         } else if(posts) {
             res.render('../views/user/profile', {username : req.user.username.toUpperCase(),userPosts : posts.posts.reverse(),data : true})
         }
@@ -180,7 +180,8 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
                         + (new Date().getMonth()+1)  + "/" 
                         + new Date().getFullYear() + " @ "  
                         + new Date().getHours() + ":"  
-                        + new Date().getMinutes() 
+                        + new Date().getMinutes() + ":" 
+                        + new Date().getSeconds()
                        
                     }
                 ]
@@ -205,7 +206,8 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
                     + (new Date().getMonth()+1)  + "/" 
                     + new Date().getFullYear() + " @ "  
                     + new Date().getHours() + ":"  
-                    + new Date().getMinutes() 
+                    + new Date().getMinutes() + ":" 
+                    + new Date().getSeconds()
                     
             })
             user.save((err, doc) => {
