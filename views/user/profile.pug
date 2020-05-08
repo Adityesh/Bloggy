@@ -71,18 +71,16 @@ html(lang="en")
                                     .modal-header
                                         h5.card-title #{post.title}
                                         br
-                                        span
-                                        br
-                                        | posted on- #{post.createdOn}
+                                        span.card-date #{post.createdOn}
                                         img.card-img-top(src=post.image.substring(post.image.indexOf("/posts")), alt='...')
                                     .modal-body
                                         p.card-text
                                             | #{post.postBody}
                                     .modal-footer
                                         button.btn.btn-danger(type='reset', data-dismiss='modal') Close
-                                        button.btn.btn-primary(type='button') Delete
+                                        button.btn.btn-primary(type='button', id='delete',onClick="window.location.reload()") Delete
                 br
-                        
+                       
                     
 
 

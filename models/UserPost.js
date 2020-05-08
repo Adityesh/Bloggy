@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
 const PostSchema = mongoose.Schema({
     title : {
         type : String,
@@ -12,7 +13,7 @@ const PostSchema = mongoose.Schema({
     image : {
         type : String,
     },
-    createdOn : {type : Date}
+    createdOn : {type : String}
 })
 
 const UserPostSchema = mongoose.Schema({

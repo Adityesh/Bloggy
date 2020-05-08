@@ -176,7 +176,12 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
                         title,
                         postBody : articleBody,
                         image,
-                        createdOn : new Date().toLocaleDateString()
+                        createdOn : new Date().getDate() + "/"
+                        + (new Date().getMonth()+1)  + "/" 
+                        + new Date().getFullYear() + " @ "  
+                        + new Date().getHours() + ":"  
+                        + new Date().getMinutes() 
+                       
                     }
                 ]
             }
@@ -196,7 +201,12 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
                     title,
                     postBody : articleBody,
                     image,
-                    createdOn : new Date().toLocaleDateString()
+                    createdOn : new Date().getDate() + "/"
+                    + (new Date().getMonth()+1)  + "/" 
+                    + new Date().getFullYear() + " @ "  
+                    + new Date().getHours() + ":"  
+                    + new Date().getMinutes() 
+                    
             })
             user.save((err, doc) => {
                 if(err) res.render('../views/user/error', {error : "Internal Server error"})
@@ -208,6 +218,27 @@ router.post('/create',isAuth,upload.single('photo'),(req,res) => {
     })
 
     
+})
+
+
+//Delete a post from the user profile and re-render the profile page
+router.post('/delete/post',isAuth,(req, res) => {
+    const {postTitle, dateString, postBody} = req.body;
+    UserPost.findOne({userId : req.user._id,email : req.user.email},(err, user) => {
+        if(!user) {
+            res.send("No valid user.")
+        }
+        const newPosts = user.posts.filter((post) => {
+            if(post.title !== postTitle && post.postBody !== postBody && post.createdOn !== dateString) {
+                return post;
+            }
+        })
+
+        user.posts = newPosts;
+        user.save()
+        
+    })
+
 })
 
 module.exports = router;
