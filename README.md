@@ -9,11 +9,11 @@ To run the application you need the following installed:
 To install `npm install` in the terminal when in the project folder
 
 
-Front-End:
+### Front-End:
 1.Bootstrap
 2.Pug
 
-Back-End
+### Back-End
 1.Express
 2.BcryptJS
 3.Mongoose
