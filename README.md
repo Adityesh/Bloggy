@@ -10,17 +10,17 @@ To install `npm install` in the terminal when in the project folder
 
 
 ### Front-End:
-1.Bootstrap
-2.Pug
+1. Bootstrap
+2. Pug
 
 ### Back-End
-1.Express
-2.BcryptJS
-3.Mongoose
-4.PassportJS
-5.Passport-Local
-6.Multer(Multipart Form data)
-7.Express-session
+1. Express
+2. BcryptJS
+3. Mongoose
+4. PassportJS
+5. Passport-Local
+6. Multer(Multipart Form data)
+7. Express-session
 
 
 The blog managament system has the following features:-
